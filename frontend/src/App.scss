@@ -1,0 +1,285 @@
+$main1: #ff6200;
+$black: #333333;
+$white: #ffffff;
+$background: #f7f7f7;
+$textgrey: #767676;
+$lightgrey: #a8a8a8;
+$bordergrey: #dddddd;
+$purple: #525199;
+$green: #349651;
+
+$defaultBorder: 1px solid $bordergrey;
+$radius: 6px;
+
+%reset-ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Times New Roman", Times, serif;
+  color: $black;
+  background: #fcfcfc;
+}
+
+h1 {
+  font-size: 22px;
+  color: $black;
+  font-weight: bold;
+  margin: 0;
+}
+
+h2 {
+  font-size: 18px;
+  color: $black;
+  font-weight: bold;
+  margin: 0;
+}
+
+h4 {
+  font-size: 16px;
+  color: $textgrey;
+  font-weight: normal;
+  margin: 0px;
+}
+
+a {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.btn-primary {
+  background: $main1;
+  border: none;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  transition: 0.2s;
+  &:hover {
+    opacity: 0.8;
+    background: $main1;
+  }
+}
+
+.btn-secondary {
+  background: transparent;
+  font-weight: bold;
+  color: $purple;
+  border-color: $purple;
+  &:hover {
+    background: $purple;
+    border-color: $purple;
+    color: $white;
+  }
+  &:focus {
+    background: $purple;
+  }
+}
+
+.search {
+  input {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    border-radius: $radius;
+    border: $defaultBorder;
+    &:focus {
+      outline: none;
+      border: 1px solid $main1;
+    }
+  }
+}
+
+.navigation {
+  border-bottom: $defaultBorder;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  background: $background;
+  .logo {
+    float: left;
+    margin-right: 2rem;
+  }
+  .main-nav {
+    @extend %reset-ul;
+    float: left;
+    margin-top: 2.5vh;
+    li {
+      display: inline-block;
+      margin-right: 2rem;
+      a {
+        font-size: 14px;
+        color: $black;
+        &:hover {
+          color: $main1;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  .user {
+    float: right;
+    font-size: 14px;
+    span {
+      display: flex;
+      align-items: center;
+      i {
+        margin-right: 0.25rem;
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.header-bar {
+  background: $white;
+  padding: 1.25rem 0rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12);
+
+  .action {
+    float: right;
+  }
+}
+
+.list-card {
+  padding: 1.5rem;
+  border: $defaultBorder;
+  margin-bottom: 1.5rem;
+  border-radius: $radius;
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.07);
+  transition: 0.4s;
+  background: $white;
+  h2 {
+    margin-bottom: 0.4rem;
+    span.experiment-status {
+      font-size: 12px;
+      margin-left: 0.3rem;
+      &.Running {
+        color: $purple;
+      }
+      &.Finished {
+        color: $green;
+      }
+    }
+  }
+  &:hover {
+    background: $main1;
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0);
+    h2,
+    h4 {
+      color: $white;
+      span {
+        color: $white;
+        &.Running,
+        &.Finished {
+          color: $white;
+        }
+      }
+    }
+  }
+}
+
+.section-title {
+  margin-bottom: 2rem;
+  padding-top: 2rem;
+  display: flex;
+  .add-icon {
+    margin-left: auto;
+    cursor: pointer;
+  }
+}
+
+.teammember-list {
+  border-left: $defaultBorder;
+  padding-left: 2rem;
+  height: calc(100vh - 130px);
+  width: 17rem;
+  ul {
+    @extend %reset-ul;
+    li {
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      i {
+        margin: 0.5rem 1rem 0.5rem 0rem;
+      }
+      button {
+        margin-left: auto;
+        display: none;
+        color: rgba(0, 0, 0, 0.25);
+        &:focus {
+          outline: none;
+        }
+      }
+      &:hover {
+        button {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+i.user-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: normal;
+  font-size: 14px;
+  color: $main1;
+  font-weight: bold;
+  background: $white;
+  border-radius: 50%;
+  border: $defaultBorder;
+  border-color: lighten($bordergrey, 6%);
+  width: 32px;
+  height: 32px;
+  margin-right: 1rem;
+}
+
+.right-nav {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+  .dropdown {
+    margin-left: 0rem;
+    .btn {
+      background: none;
+      color: $black;
+      font-weight: normal;
+      font-size: 14px;
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0;
+      }
+
+      &:active {
+        color: inherit;
+        background: $background;
+        border: none;
+        &:focus {
+          box-shadow: none;
+        }
+      }
+
+      .Ripple {
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}
+
+tbody + thead {
+  display: none;
+}
