@@ -1,15 +1,14 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const path = require("path");
 const winston = require("winston");
 const expressWinston = require("express-winston");
+const Sequelize = require("sequelize");
+
+const { User, Token } = require("./sequelize");
 
 const users = require("./routes/api/users");
-
-mongoose.set("useNewUrlParser", true);
-mongoose.set("useCreateIndex", true);
 
 const app = express();
 
@@ -33,15 +32,6 @@ app.use(
   })
 );
 app.use(express.json({ extended: true }));
-
-// DB Config
-const db = require("./config/keys").mongoURI;
-
-// Connect to MongoDB
-mongoose
-  .connect(db)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
 
 // Passport middleware
 app.use(passport.initialize());

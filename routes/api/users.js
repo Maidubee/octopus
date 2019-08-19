@@ -13,7 +13,7 @@ const keys = require("../../config/keys");
 const { check } = require("express-validator");
 
 // Load User model
-const User = require("../../models/User");
+const { User } = require("../../sequelize");
 const Token = require("../../models/Token");
 
 const { notFound, checkForErrors } = require("../../helpers");
@@ -51,24 +51,25 @@ router.post(
 
     const { name, email, password } = req.body;
 
-    let user = await User.findByEmail(email);
-    if (!!user) {
+    let user = await User.findAll({ where: { email } });
+    console.log();
+    if (user.length > 0) {
       return userAlreadyExists(res);
-    } else if (email.includes("@ing.com")) {
-      const newUser = await createNewUser(name, email, password);
+    } else {
+      const newUser = await User.create({ name, email, password });
 
-      const token = await createToken(newUser);
-      await token.save();
+      // const token = await Token.create(newUser);
+      // await token.save();
 
-      await newUser.updatePassword(password);
-      await newUser.save();
+      // await newUser.updatePassword(password);
+      // await newUser.save();
+
+      console.log(newUser);
 
       // TODO: Catch potential error
       const mailjetEmail = await sendWelcomeEmail(name, email, req, token);
 
       res.json(newUser);
-    } else {
-      res.status(401).json({ errors: [{ msg: "Domain not allowed" }] });
     }
   })
 );
