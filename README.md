@@ -1,7 +1,7 @@
 # Octopus
 
 ## Development & Running
-- Run "yarn install && yarn install frontend" to install all packages
+- Run "yarn install && yarn client-install" to install all packages
 - Run "yarn dev" to run the frontend and backend for the dev environment
 
 ## Branches
