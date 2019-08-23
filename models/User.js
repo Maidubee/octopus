@@ -1,8 +1,6 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const bcrypt = require("bcryptjs");
 const passwordValidator = require("password-validator");
 const passwordRequirements = new passwordValidator();
+const bcrypt = require("bcryptjs");
 
 passwordRequirements
   .is()
@@ -19,88 +17,51 @@ passwordRequirements
   .not()
   .spaces(); // Should not have spaces
 
-// Create Schema
-const UserSchema = new Schema({
-  name: {
-    type: String,
-    required: true
-  },
-  email: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  role: {
-    type: String,
-    default: "innovator"
-  },
-  isVerified: {
-    type: Boolean,
-    default: false
-  },
-  date: {
-    type: Date,
-    default: Date.now()
-  }
-});
-
-UserSchema.pre("save", async function(next) {
-  if (!this.isModified("password")) {
-    return next();
-  }
-  if (!passwordRequirements.validate(this.password)) {
-    throw new Error("Password requirements not met");
-  }
-
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
-});
-
-UserSchema.methods.setVerified = async function() {
-  this.isVerified = true;
-};
-
-UserSchema.methods.updateName = async function(newName) {
-  this.name = newName;
-};
-
-UserSchema.methods.updateEmail = async function(newEmail) {
-  this.email = newEmail;
-};
-
-UserSchema.methods.updatePassword = async function(
-  currentPassword,
-  newPassword,
-  confirmNewPassword
-) {
-  if (newPassword !== undefined && confirmNewPassword !== undefined) {
-    const passwordIsCorrect = await bcrypt.compare(currentPassword, this.password);
-    if (!passwordIsCorrect) {
-      throw new Error("Old password incorrect");
+module.exports = (sequelize, type) => {
+  return sequelize.define(
+    "user",
+    {
+      id: {
+        type: type.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+      },
+      email: {
+        type: type.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: true
+        }
+      },
+      name: {
+        type: type.STRING,
+        allowNull: false,
+        validate: {
+          is: ["^[a-z]+$", "i"]
+        }
+      },
+      password: {
+        type: type.STRING,
+        allowNull: false
+      }
+    },
+    {
+      classMethods: {
+        findByEmail: async email => {
+          console.log(this);
+        }
+      },
+      hooks: {
+        beforeSave: async (user, options) => {
+          if (user.changed("password")) {
+            if (!passwordRequirements.validate(user.password)) {
+              throw new Error("Password requirements not met");
+            }
+            user.password = await bcrypt.hash(user.password, 10);
+          }
+        }
+      }
     }
-    if (newPassword !== confirmNewPassword) {
-      throw new Error("Passwords don't match");
-    }
-    this.password = newPassword;
-  } else {
-    this.password = currentPassword;
-  }
+  );
 };
-
-UserSchema.statics.findByEmail = async function(email) {
-  return await this.findOne({ email });
-};
-
-UserSchema.statics.findByID = async function(id) {
-  return await this.findOne({ _id: id });
-};
-
-UserSchema.statics.all = async function(id) {
-  return await this.find({}, "name email role");
-};
-
-User = mongoose.model("users", UserSchema);
-module.exports = User;
