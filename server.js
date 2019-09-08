@@ -34,10 +34,10 @@ app.use(
 app.use(express.json({ extended: true }));
 
 // Passport middleware
-app.use(passport.initialize());
+//app.use(passport.initialize());
 
 // Passport Config
-require("./config/passport")(passport);
+//require("./config/passport")(passport);
 
 // Use Routes
 app.use("/api/users", users);
