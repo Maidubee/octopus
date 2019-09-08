@@ -7,6 +7,7 @@ const ClientModel = require("./models/Client");
 const ProjectModel = require("./models/Project");
 const SupplierModel = require("./models/Supplier");
 const SubProjectModel = require("./models/SubProject");
+const StatusModel = require("./models/Status")
 
 const sequelize = new Sequelize(
   "mysql://dtna9lwshlzpfwao:f7zerqu5ti0j00nk@w1kr9ijlozl9l79i.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/ljyw54uzviyfzsd7"
@@ -19,8 +20,18 @@ const Client = ClientModel(sequelize, Sequelize);
 const Project = ProjectModel(sequelize, Sequelize);
 const Supplier = SupplierModel(sequelize, Sequelize);
 const SubProject = SubProjectModel(sequelize, Sequelize);
+const Status = StatusModel(sequelize, Sequelize);
 
 Token.belongsTo(User);
+SubProject.belongsTo(Project);
+SubProject.belongsTo(Object);
+SubProject.belongsTo(Client);
+
+User.hasMany(Project);
+Project.hasMany(SubProject);
+Client.hasMany(SubProject);
+Status.hasMany(SubProject);
+
 
 sequelize.sync({ force: false }).then(() => {
   console.log(`Database & tables created!`);
@@ -32,5 +43,6 @@ module.exports = {
   Object,
   Client,
   Project,
-  Supplier
+  Supplier,
+  Status
 };
