@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import useReactRouter from "use-react-router";
-import { loginUser } from "../../actions/authActions";
 import TextFieldGroup from "../common/TextFieldGroup";
 import { MDBAlert } from "mdbreact";
+import firebase from "../firebase";
+import setAuthToken from "../../utils/setAuthToken";
+import { setCurrentUser } from "../../actions/authActions";
+import jwt_decode from "jwt-decode";
 
 const Login = () => {
   const [email, setEmail] = useState();
@@ -20,9 +23,18 @@ const Login = () => {
     }
   });
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
-    dispatch(loginUser({ email, password }));
+    try {
+      const { token } = await firebase.login(email, password);
+      localStorage.setItem("jwtToken", token);
+      setAuthToken(token);
+      const decoded = jwt_decode(token);
+      dispatch(setCurrentUser(decoded));
+      history.push("/");
+    } catch (error) {
+      alert(error);
+    }
   };
 
   const showErrors =
