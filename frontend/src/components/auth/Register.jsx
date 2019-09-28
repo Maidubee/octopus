@@ -1,86 +1,72 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { MDBAlert } from "mdbreact";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import useReactRouter from "use-react-router";
-
-import { registerUser } from "../../actions/authActions";
 import TextFieldGroup from "../common/TextFieldGroup";
+import { Link } from "react-router-dom";
+import firebase from "../firebase";
 
 const Register = () => {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
-  const dispatch = useDispatch();
-  const auth = useSelector(state => state.auth);
   const errors = useSelector(state => state.errors);
   const { history } = useReactRouter();
 
   useEffect(() => {
-    if (auth.isAuthenticated) {
+    if (firebase.auth.currentUser !== null) {
       history.push("/");
     }
   });
 
-  const onSubmit = e => {
+  const onRegister = async e => {
     e.preventDefault();
-    dispatch(registerUser({ name, email, password, confirmPassword }, history));
+
+    try {
+      await firebase.register(name, email, password);
+      history.push("/login");
+    } catch (error) {
+      alert(error);
+    }
   };
 
-  const showErrors =
-    errors.length > 0
-      ? errors.map(error => (
-        <MDBAlert className="mt-2" color="danger">
-          {error.msg}
-        </MDBAlert>
-      ))
-      : "";
-
   return (
-    <div className="register">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-8 m-auto">
-            <h1 className="mt-4 text-center">Sign Up</h1>
-            <p className="text-center mb-4">Create your Octopus account</p>
-            <form noValidate onSubmit={onSubmit}>
-              <TextFieldGroup
-                placeholder="Name"
-                id="name"
-                type="name"
-                value={name}
-                onChange={e => setName(e.target.value)}
-                error={errors.name}
-              />
-              <TextFieldGroup
-                placeholder="Email"
-                id="email"
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-                error={errors.email}
-              />
-              <TextFieldGroup
-                placeholder="Password"
-                id="password"
-                type="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-                error={errors.password}
-              />
-              <TextFieldGroup
-                placeholder="Confirm Password"
-                id="confirmPassword"
-                type="password"
-                value={confirmPassword}
-                onChange={e => setConfirmPassword(e.target.value)}
-              />
-              <input type="submit" className="btn btn-primary btn-block mt-4" value="Register" />
-            </form>
-            {showErrors}
-          </div>
-        </div>
+    <div className="login">
+      <div className="logo">
+        <img src={""} alt="logo" />
       </div>
+      <div className="login-box">
+        <h1 className="display-4 text-center">Sign Up</h1>
+        <p className="lead text-center">Create your Stippl account</p>
+        <form noValidate onSubmit={onRegister}>
+          <TextFieldGroup
+            placeholder="Name"
+            name="name"
+            value={name}
+            onChange={e => setName(e.target.value)}
+            error={errors.name}
+          />
+          <TextFieldGroup
+            placeholder="Email"
+            name="email"
+            type="email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            error={errors.email}
+          />
+          <TextFieldGroup
+            placeholder="Password"
+            name="password"
+            type="password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+            error={errors.password}
+          />
+          <input type="submit" className="button" value="Sign up" />
+        </form>
+      </div>
+      <h4>
+        Already have an account? <Link to="/login">Login here!</Link>
+      </h4>
     </div>
   );
 };
