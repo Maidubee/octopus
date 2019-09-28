@@ -1,12 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const passport = require("passport");
 const path = require("path");
 const winston = require("winston");
 const expressWinston = require("express-winston");
-const Sequelize = require("sequelize");
-
-const { User, Token } = require("./sequelize");
 
 const users = require("./routes/api/users");
 
@@ -32,12 +28,6 @@ app.use(
   })
 );
 app.use(express.json({ extended: true }));
-
-// Passport middleware
-app.use(passport.initialize());
-
-// Passport Config
-require("./config/passport")(passport);
 
 // Use Routes
 app.use("/api/users", users);

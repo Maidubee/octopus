@@ -2,13 +2,13 @@ import app from "firebase/app";
 import "firebase/auth";
 
 const config = {
-    apiKey: "AIzaSyBEYZZTk2KX1QOx4E-nJULLzGj5scan9vk",
-    authDomain: "octopus-2b256.firebaseapp.com",
-    databaseURL: "https://octopus-2b256.firebaseio.com",
-    projectId: "octopus-2b256",
-    storageBucket: "",
-    messagingSenderId: "758521877480",
-    appId: "1:758521877480:web:4b65283a671e187a478a5d"
+  apiKey: "AIzaSyBEYZZTk2KX1QOx4E-nJULLzGj5scan9vk",
+  authDomain: "octopus-2b256.firebaseapp.com",
+  databaseURL: "https://octopus-2b256.firebaseio.com",
+  projectId: "octopus-2b256",
+  storageBucket: "",
+  messagingSenderId: "758521877480",
+  appId: "1:758521877480:web:4b65283a671e187a478a5d"
 };
 
 class Firebase {
@@ -26,6 +26,10 @@ class Firebase {
       const token = await this.auth.currentUser.getIdToken(true);
       return { user, token };
     }
+  };
+
+  sendPasswordResetEmail = async email => {
+    await this.auth.sendPasswordResetEmail(email);
   };
 
   logout() {

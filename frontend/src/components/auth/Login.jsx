@@ -37,6 +37,15 @@ const Login = () => {
     }
   };
 
+  const sendPasswordResetEmail = async e => {
+    e.preventDefault();
+    try {
+      await firebase.sendPasswordResetEmail(email);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   const showErrors =
     errors.length > 0
       ? errors.map(error => (
@@ -70,9 +79,10 @@ const Login = () => {
               />
 
               <input type="submit" className="btn btn-primary btn-block mt-2 mb-4" value="Login" />
-              <Link to="forgot_password">
-                <small className="text-muted">Forgot your password? | </small>
-              </Link>
+              <small className="text-muted" onClick={sendPasswordResetEmail}>
+                {" "}
+                Forgot your password? |{" "}
+              </small>
               <Link to="/register">
                 <small className="text-muted">Create account</small>
               </Link>
