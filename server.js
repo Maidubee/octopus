@@ -5,6 +5,7 @@ const winston = require("winston");
 const expressWinston = require("express-winston");
 
 const users = require("./routes/api/users");
+const clients = require("./routes/api/clients");
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(express.json({ extended: true }));
 
 // Use Routes
 app.use("/api/users", users);
+app.use("/api/clients", clients);
 
 // Serve static assets in production
 if (process.env.NODE_ENV === "production") {

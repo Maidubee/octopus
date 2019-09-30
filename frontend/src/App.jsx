@@ -14,6 +14,7 @@ import { setCurrentUser, logoutUser } from "./actions/authActions";
 import Navbar from "./components/layout/Navbar";
 import Users from "./components/admin/Users";
 import User from "./components/user/User";
+import Client from "./components/client/Client";
 import NotFound from "./components/common/NotFound";
 
 import Login from "./components/auth/Login";
@@ -57,6 +58,7 @@ const App = () => {
             <Route exact path="/forgot_password" component={ForgotPassword} />
             <Route exact path="/reset_password/:token" component={ResetPassword} />
             <Route exact path="/confirm_account/:token" component={ConfirmAccount} />
+            <Route exact path="/clients" component={Client} />
             <Route component={NotFound} />
           </Switch>
         </div>
