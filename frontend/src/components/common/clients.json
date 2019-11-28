@@ -1,5 +1,26 @@
 [
-  { "id": 1, "name": "Client1" },
-  { "id": 2, "name": "Client2" },
-  { "id": 3, "name": "Client3" }
+  {
+    "id": 1,
+    "name": "Schiphol",
+    "street_name": "Evert van de Beekstraat",
+    "street_number": 202,
+    "postal_code": "1118CT",
+    "city": "Schiphol"
+  },
+  {
+    "id": 2,
+    "name": "ING",
+    "street_name": "Bijlmerdreef",
+    "street_number": 24,
+    "postal_code": "1102CT",
+    "city": "Amsterdam"
+  },
+  {
+    "id": 3,
+    "name": "Ahold",
+    "street_name": "Provincialeweg",
+    "street_number": 11,
+    "postal_code": "1506MA",
+    "city": "Zaandam"
+  }
 ]

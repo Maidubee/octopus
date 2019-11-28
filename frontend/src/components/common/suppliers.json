@@ -1,5 +1,26 @@
 [
-  { "id": 1, "name": "Supplier1" },
-  { "id": 2, "name": "Supplier2" },
-  { "id": 3, "name": "Supplier3" }
+  {
+    "id": 1,
+    "name": "Heineken",
+    "street_name": "Scharenbrug",
+    "street_number": 5,
+    "postal_code": "1046BA",
+    "city": "Amsterdam"
+  },
+  {
+    "id": 2,
+    "name": "Amstel",
+    "street_name": "Rembrandtweg",
+    "street_number": 130,
+    "postal_code": "1181GX",
+    "city": "Amsterdam"
+  },
+  {
+    "id": 3,
+    "name": "Leffe",
+    "street_name": "Place de l'Abbaye",
+    "street_number": 1,
+    "postal_code": "5500",
+    "city": "Dinant"
+  }
 ]

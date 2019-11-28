@@ -1,5 +1,5 @@
 [
-  { "id": 1, "name": "Project1" },
-  { "id": 2, "name": "Project2" },
-  { "id": 3, "name": "Project3" }
+  { "id": 1, "name": "Schiphol Renovation", "number": "1a" },
+  { "id": 2, "name": "ING Headoffice move", "number": "2b" },
+  { "id": 3, "name": "House construction", "number": "3c" }
 ]

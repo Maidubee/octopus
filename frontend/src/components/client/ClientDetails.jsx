@@ -1,10 +1,15 @@
 import React from "react";
 import { Container, Row, Col, MDBJumbotron as Jumbotron } from "mdbreact";
+import useReactRouter from "use-react-router";
+
 import RelatedItems from "../common/RelatedItems";
+import clients from "../common/clients.json";
 import projects from "../common/projects.json";
 import objects from "../common/objects.json";
 
 const ClientDetails = () => {
+  const { match } = useReactRouter();
+  const client = clients.filter(client => client.id === Number(match.params.id))[0];
   return (
     <Container className="mt-3">
       <Row className="justify-content-center">
@@ -12,20 +17,22 @@ const ClientDetails = () => {
           <Jumbotron>
             <Row>
               <Col md={12}>
-                <h2>ClientName</h2>
+                <h2>{client.name}</h2>
               </Col>
             </Row>
             <Row>
-              <Col>ClientId</Col>
+              <Col>{client.id}</Col>
             </Row>
             <Row>
-              <Col>Street name + number</Col>
+              <Col>
+                {client.street_name} {client.street_number}
+              </Col>
             </Row>
             <Row>
-              <Col>Postal Code</Col>
+              <Col>{client.postal_code}</Col>
             </Row>
             <Row>
-              <Col>City</Col>
+              <Col>{client.city}</Col>
             </Row>
           </Jumbotron>
         </Col>

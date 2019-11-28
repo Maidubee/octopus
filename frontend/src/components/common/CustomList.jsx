@@ -9,7 +9,9 @@ const CustomList = ({ type, label, items }) => {
       <ListGroup>
         {items.map(item => (
           <Link to={`/${type}/${item.id}`}>
-            <ListGroupItem key={item.id}>{item.name}</ListGroupItem>
+            <ListGroupItem key={item.id} className="mb-2">
+              {item.name}
+            </ListGroupItem>
           </Link>
         ))}
       </ListGroup>

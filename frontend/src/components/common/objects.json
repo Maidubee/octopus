@@ -1,5 +1,32 @@
 [
-  { "id": 1, "name": "Object1" },
-  { "id": 2, "name": "Object2" },
-  { "id": 3, "name": "Object3" }
+  {
+    "id": 1,
+    "name": "Schiphol Plaza",
+    "street_name": "Evert van de Beekstraat",
+    "street_number": 202,
+    "postal_code": "1118CT",
+    "city": "Schiphol",
+    "surface": "unknown",
+    "n_floors": 5
+  },
+  {
+    "id": 2,
+    "name": "ING Acanthus",
+    "street_name": "Bijlmerdreef",
+    "street_number": 24,
+    "postal_code": "1102CT",
+    "city": "Amsterdam",
+    "surface": "unknown",
+    "n_floors": 16
+  },
+  {
+    "id": 3,
+    "name": "Ahold Headoffice",
+    "street_name": "Provincialeweg",
+    "street_number": 11,
+    "postal_code": "1506MA",
+    "city": "Zaandam",
+    "surface": "unknown",
+    "n_floors": 12
+  }
 ]
