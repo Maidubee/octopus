@@ -22,6 +22,12 @@ import Register from "./components/auth/Register";
 import ForgotPassword from "./components/auth/ForgotPassword";
 import ResetPassword from "./components/auth/ResetPassword";
 import ConfirmAccount from "./components/auth/ConfirmAccount";
+import Dashboard from "./components/dashboard/Dashboard";
+
+import SupplierDetails from "./components/supplier/SupplierDetails";
+import ProjectDetails from "./components/project/ProjectDetails";
+import ClientDetails from "./components/client/ClientDetails";
+import ObjectDetails from "./components/object/ObjectDetails";
 
 import "./App.scss";
 
@@ -59,6 +65,11 @@ const App = () => {
             <Route exact path="/reset_password/:token" component={ResetPassword} />
             <Route exact path="/confirm_account/:token" component={ConfirmAccount} />
             <Route exact path="/clients" component={Client} />
+            <Route exact path="/" component={Dashboard} />
+            <Route exact path="/client/:id" component={ClientDetails} />
+            <Route exact path="/supplier/:id" component={SupplierDetails} />
+            <Route exact path="/project/:id" component={ProjectDetails} />
+            <Route exact path="/object/:id" component={ObjectDetails} />
             <Route component={NotFound} />
           </Switch>
         </div>
